@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "make": "mazda",
+    "model": "cx-7",
+    "color": "purple",
+    "year": 2012
+  },
+  {
+    "id": 2,
+    "make": "ford",
+    "model": "focus",
+    "color": "white",
+    "year": 2015
+  },
+  {
+    "id": 3,
+    "make": "ford",
+    "model": "mustang",
+    "color": "black",
+    "year": "1995"
+  },
+  {
+    "id": 4,
+    "make": "mazda",
+    "model": "cx-5",
+    "color": "black",
+    "year": 2020
+  },
+  {
+    "id": 5,
+    "make": "mazda",
+    "model": "6",
+    "color": "black",
+    "year": 2018
+  },
+  {
+    "id": 6,
+    "make": "mazda",
+    "model": "6",
+    "color": "white",
+    "year": 2019
+  }
+]
