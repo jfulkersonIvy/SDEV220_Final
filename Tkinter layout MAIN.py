@@ -99,7 +99,7 @@ class App(customtkinter.CTk):
     # Example: if current list IDs are 1, 2, 4, 5, 6 - This will find 3 and save the next added car as ID 3
     def getNextID(self):
         for x in range(0,len(self.carInventory.getCarList())):
-            # JF - If an open position is found, we return the open position
+            # If an open position is found, we return the open position
             if (x < len(self.carInventory.getCarList()) - 1 and self.carInventory.getCarList()[x]['id'] != self.carInventory.getCarList()[x + 1]['id'] - 1):
                 return self.carInventory.getCarList()[x]['id'] + 1
         # If no open position is found within the current list, next ID is returned as the length + 1
@@ -116,15 +116,16 @@ class App(customtkinter.CTk):
             add_items[1][1].delete(0, customtkinter.END)
             add_items[1][2].delete(0, customtkinter.END)
             add_items[1][3].delete(0, customtkinter.END)
+            # If user tries to add a car with missing values, an error is displayed
             if(car.getMake=="" or car.getModel()=="" or car.getColor()=="" or car.getYear()==""):
                 self.open_popup(" Insufficient information provided. ")
                 return
-            if (car.getID()==len(self.carInventory.getCarList())):
-                self.open_popup(self.carInventory.addCar(car, car.getID()))
+            # Add car in next available ID position
+            # Subtract 1 due to dictionary position starting at zero
             else:
                 self.open_popup(self.carInventory.addCar(car,car.getID()-1))
 
-
+        # Remove car from inventory
         def removeCar():
             car = Car.Car(remove_items[1][0].get(), remove_items[1][1].get(), remove_items[1][2].get(), remove_items[1][3].get(), remove_items[1][4].get())
             remove_items[1][0].delete(0, customtkinter.END)
@@ -132,6 +133,7 @@ class App(customtkinter.CTk):
             remove_items[1][2].delete(0, customtkinter.END)
             remove_items[1][3].delete(0, customtkinter.END)
             remove_items[1][4].delete(0, customtkinter.END)
+            # Confirmation message when car is removed
             self.open_popup(self.carInventory.removeCar(car))
 
 
@@ -175,11 +177,15 @@ class App(customtkinter.CTk):
     def Catalog(self):
         # Create Catalog tab view
 
+        # Allow searches based on results from all categories
         def searchCar():
             search = Search.Search()
             searchResults = search.search(self.searchEntry.get(),self.carInventory.getCarList())
+            # If nothing is searched, the entire catalog will be displayed
             if len(searchResults)==0:
                 searchResults = self.carInventory.getCarList()
+            
+            # Create a separate label for each car so they are all displayed upon starting application
             for x in range(0,100):
                 if(x>=len(searchResults)):
                     newText = ""
