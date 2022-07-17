@@ -81,12 +81,12 @@ class App(customtkinter.CTk):
     def change_appearance_mode(self, new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
-    # JF - When app is closed, write any updates to the car list - Do we need event arg?
+    # When app is closed, write any updates to the car list
     def on_closing(self, event=0):
         self.storage.write(self.carInventory.getCarList())
         self.destroy()
 
-    # JF - Create a popup and move to top level view - used to give confirmation during events
+    # Create a popup and move to top level view - used to give confirmation during events
     def open_popup(self, text):
         top = customtkinter.CTkToplevel()
         top.geometry("300x50")
@@ -94,23 +94,23 @@ class App(customtkinter.CTk):
         customtkinter.CTkLabel(top, text=text).grid(row=0, column=0)
 
 
-    # JF - Used to save the next created car in the right ID position within the list
-    # JF - This will search the current car list to find open ID positions and return the first ID available
-    # JF - Example: if current list IDs are 1, 2, 4, 5, 6 - This will find 3 and save the next added car as ID 3
+    # Used to save the next created car in the right ID position within the list
+    # This will search the current car list to find open ID positions and return the first ID available
+    # Example: if current list IDs are 1, 2, 4, 5, 6 - This will find 3 and save the next added car as ID 3
     def getNextID(self):
         for x in range(0,len(self.carInventory.getCarList())):
             # JF - If an open position is found, we return the open position
             if (x < len(self.carInventory.getCarList()) - 1 and self.carInventory.getCarList()[x]['id'] != self.carInventory.getCarList()[x + 1]['id'] - 1):
                 return self.carInventory.getCarList()[x]['id'] + 1
-        # JF - If no open position is found within the current list, next ID is returned as the length + 1
+        # If no open position is found within the current list, next ID is returned as the length + 1
         return len(self.carInventory.getCarList()) + 1
 
     def UpdateCar(self):
         # Creates Update Car tab view
 
-        # JF - Add car to inventory
+        # Add car to inventory
         def addCar():
-            # JF - Use getNextID to find open positions in list so cars remain in order of ID
+            # Use getNextID to find open positions in list so cars remain in order of ID
             car = Car.Car(self.getNextID(), add_items[1][0].get(), add_items[1][1].get(), add_items[1][2].get(), add_items[1][3].get())
             add_items[1][0].delete(0, customtkinter.END)
             add_items[1][1].delete(0, customtkinter.END)
